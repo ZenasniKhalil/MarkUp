@@ -118,14 +118,14 @@
           </tr>
         </thead>
         <tbody>
-          {% for record in records.qs %} 
+          {% for record in records.qs %}
           <tr>
             <td>{{record.etudiant.mat}}</td>
             <td>{{record.etudiant.nom}}</td>
             <td>{{record.etudiant.prenom}}</td>
             <td>{{record.etudiant.date_de_naissance}}</td>
-            <td>{{record.etudiant.domaine}}</td>
-            <td>{{record.etudiant.filiere}}</td>
+            <td>{{record.etudiant.domaine.nom}}</td>
+            <td>{{record.etudiant.filiere.nom}}</td>
             <td>{{record.etudiant.niveau}}</td>
             <td>{{record.date|date:'d/m/Y'}}</td>
             <td>{{record.temp|date:"G:i"}}</td>

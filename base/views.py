@@ -20,8 +20,10 @@ def dashboard(request):
                     'Code niveau',
                     'Date de l\'examen',
                     'Heure de l\'examen']
+
     records = VerifierFilter(request.GET, queryset=Verifier.objects.all())
     request.session['recods'] = request.GET
+
     context={
         'records':records,
         'header':table_header,
