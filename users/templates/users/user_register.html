@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<center>
+    <div style="margin: 200px;">
+        <form method="POST">
+            {% csrf_token %}
+            {{form.username}}
+            <small id="passwordHelpBlock" class="form-text text-muted">
+                {{form.username.help_text}}
+              </small>
+            <br>
+            <div class="row">
+                <div class="col">
+                  {{form.first_name}}
+                </div>
+                <div class="col">
+                  {{form.last_name}}
+                </div>
+              </div>
+          <br>
+          {{form.email}}
+          <br>
+          <div class="row">
+            <div class="col">
+              {{form.password1}}
+              <small id="passwordHelpBlock" class="form-text text-muted">
+                {{form.password1.help_text}}
+              </small>
+            </div>
+            <div class="col">
+              {{form.password2}}
+              <small id="passwordHelpBlock" class="form-text text-muted">
+                Enter the same password as before, for verification.
+              </small>
+              
+            </div>
+          </div>
+          <input type="submit" value="Register" class="btn btn btn-outline-info" > 
+          </form>
+    </div>
+</center>
+{% endblock %}

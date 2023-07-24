@@ -1,0 +1,188 @@
+{% extends 'index.html' %}
+<!-- Loading Widget -->
+{% load widget_tweaks %}
+<!-- Heading -->
+{% block heading %}
+<style>
+  #filter-btn {
+    margin: 10px 0px;
+  }
+</style>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-6 text-gray-800 m-4">Étudiants</h1>
+  {% if admin %}
+  <a href="{% url 'base:add_student' %}" class="btn btn-success btn-icon-split">
+    <span class="icon text-white-50">
+      <i class="fas fa-user-plus"></i>
+    </span>
+    <span class="text">Ajouter Étudiant</span>
+  </a>
+  {% endif %}
+</div>
+{% endblock %} {% block content %}
+
+<div class="card mb-4">
+  <center>
+    <div class="card-header">Filter</div>
+  </center>
+  <div class="card-body">
+    <form action="#the_list" method="get">
+      <div class="row">
+        <div class="col">
+          <label for="">Matricule:</label>
+          {% render_field students.form.mat class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Nom:</label>
+          {% render_field students.form.nom class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Prénom:</label>
+          {% render_field students.form.prenom class+="form-control" %}
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col">
+          <label for="">Domaine:</label>
+          {% render_field students.form.domaine class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Filière:</label>
+          {% render_field students.form.filiere class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Niveau:</label>
+          {% render_field students.form.niveau class+="form-control" %}
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col">
+          <label for="">L'année De Naissance:</label>
+          {% render_field students.form.year class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Le Mois De Naissance:</label>
+          {% render_field students.form.month class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Le Jour De Naissance:</label>
+          {% render_field students.form.day class+="form-control" %}
+        </div>
+      </div>
+      <br />
+      <center>
+        <input type="submit" value="Filtrer" class="btn btn-info" />
+        <a href="{% url 'base:student' %}" class="btn btn-warning"
+          >Annuler le Filtre</a
+        >
+      </center>
+    </form>
+  </div>
+</div>
+
+<div class="card shadow mb-4" id="the_list">
+  <div class="card-header py-3">
+    <center>
+      <h6 class="m-0 font-weight-bold text-primary">Tout Les Étudiant</h6>
+    </center>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      {% if not students.qs %}
+      <center>
+        <h1>Aucun étudiant</h1>
+      </center>
+      {% else %}
+
+      <!-- <div class="card mb-4">
+        <center>
+          <div class="card-header">Filter</div>
+        </center>
+        <div class="card-body">
+          <form action="" method="GET">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <label for="mat">Matricule</label>
+                  <input type="text" name="mat" id="mat" class="form-control" />
+                </div>
+                <div class="col">
+                  <label for="nom">Nom</label>
+                  <input type="text" name="nom" id="nom" class="form-control" />
+                </div>
+                <div class="col">
+                  <label for="prenom">Prénom</label>
+                  <input
+                    type="text"
+                    name="prenom"
+                    id="prenom"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col">
+                  <label for="">Domaine:</label> {{filter_form.domaine}}
+                </div>
+                <div class="col">
+                  <label for="">Filière:</label> {{filter_form.filiere}}
+                </div>
+                <div class="col">
+                  <label for="">Niveau:</label> {{filter_form.niveau}}
+                </div>
+                <div class="col">
+                  <label for="">Date De Naissance:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    name="date_de_naissance"
+                  />
+                </div>
+              </div>
+              <center>
+                <input
+                  type="submit"
+                  value="Filter"
+                  class="btn btn-info"
+                  id="filter-btn"
+                />
+              </center>
+            </div>
+          </form>
+        </div>
+      </div> -->
+      <table
+        class="table table-bordered table-striped"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+      >
+        <thead>
+          <tr>
+            {% for head in header %}
+            <th>{{head}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students.qs %}
+          <tr>
+            <td>{{student.mat}}</td>
+            <td>{{student.nom}}</td>
+            <td>{{student.prenom}}</td>
+            <td>{{student.date_de_naissance|date:'d/m/Y'}}</td>
+            <td>{{student.domaine}}</td>
+            <td>{{student.filiere}}</td>
+            <td>{{student.niveau}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

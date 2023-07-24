@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<style>
+    .set-center {
+      height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #annuler {
+      margin-left: 20px;
+    }
+    .set_width{
+        width: 700px;
+    }
+  </style>
+  <div class="set-center">
+    <div class="card mb-4 delete">
+      <div class="card-header">Ajouter Un Domaine</div>
+      <div class="card-body">
+        <div class="set_width">
+            <center>
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <label for="">Domaine Code:</label>
+                  {% render_field form.code class+="form-control" %}
+                  <label for="">Domaine:</label>
+                  {% render_field form.nom class+="form-control" %}
+                  <br>
+                  <input type="submit" value="Ajouter" class="btn btn-success" />
+                  <a
+                    href="{% url 'base:dashboard' %}"
+                    class="btn btn-warning"
+                    id="annuler"
+                    >Annuler</a
+                  >
+                </form>
+              </center>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

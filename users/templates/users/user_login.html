@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block main %}
+<style>
+body{
+  background: linear-gradient(90deg, #4e73df  0%, #224abe 100%);
+}
+</style>
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem; border: none;outline: none;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);">
+          <div class="card-body p-5 text-center">
+            <!--message-->
+            {% if messages %}
+            <!---->
+            {% for message in messages %}
+            <!-- #region -->
+            {% if message.tags == 'error' %}
+            <!-- #region -->
+            <div class="alert alert-danger" role="alert" id="alert">
+              {{ message|safe }}
+            </div>
+            {% endif %}
+            <!-- #region -->
+            {% endfor %}
+            <!-- #region -->
+            {% endif %}
+            <!--end message-->
+
+
+
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="mb-md-5 mt-md-4 pb-5">
+
+                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                <p class="text-white-50 mb-5">Entrer votre nom d'utilisateur et votre mot de passe!</p>
+  
+                <div class="form-outline form-white mb-4">
+                  <input type="text" id="typeEmailX" class="form-control form-control-lg" name="username" />
+                  <label class="form-label" for="typeEmailX">Nom d'utilisateur</label>
+                </div>
+  
+                <div class="form-outline form-white mb-4">
+                  <input type="password" id="typePasswordX" class="form-control form-control-lg" name="password" />
+                  <label class="form-label" for="typePasswordX">Mot de passe</label>
+                </div>
+  
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+
+

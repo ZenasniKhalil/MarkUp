@@ -1,0 +1,140 @@
+{% extends 'index.html' %}
+<!-- Loading Widget -->
+{% load widget_tweaks %}
+<!-- Heading -->
+{% block heading %}
+<style>
+  #filter-btn {
+    margin: 10px 0px;
+  }
+</style>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-6 text-gray-800 m-4">Étudiants</h1>
+  <a href="{% url 'base:export' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+    class="fas fa-download fa-sm text-white-50"></i> télécharger le rapport</a>
+</div>
+{% endblock %} {% block content %}
+
+<div class="card mb-4">
+  <center>
+    <div class="card-header">Filter</div>
+  </center>
+  <div class="card-body">
+    <form action="#the_list" method="get">
+      <div class="row">
+        <div class="col">
+          <label for="">Matricule:</label>
+          {% render_field records.form.mat class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Nom:</label>
+          {% render_field records.form.nom class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Prénom:</label>
+          {% render_field records.form.prenom class+="form-control" %}
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col">
+          <label for="">Domaine:</label>
+          {% render_field records.form.domaine class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Filière:</label>
+          {% render_field records.form.filiere class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Niveau:</label>
+          {% render_field records.form.niveau class+="form-control" %}
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col">
+          <label for="">L'année De Naissance:</label>
+          {% render_field records.form.year class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Le Mois De Naissance:</label>
+          {% render_field records.form.month class+="form-control" %}
+        </div>
+        <div class="col">
+          <label for="">Le Jour De Naissance:</label>
+          {% render_field records.form.day class+="form-control" %}
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col">
+          <label for="">Date De L'examen :</label>
+          {% render_field records.form.date class+="form-control" type='date' %}
+        </div>
+        <div class="col">
+          <label for="">Depuis:</label>
+          {% render_field records.form.time_gt class+="form-control" type='time'%}
+        </div>
+        <div class="col">
+          <label for="">Jusqu'à:</label>
+          {% render_field records.form.time_lt class+="form-control" type='time'%}
+        </div>
+      </div>
+      <br>
+      <center>
+        <input type="submit" value="Filtrer" class="btn btn-info" />
+        <a href="{% url 'base:dashboard' %}" class="btn btn-warning"
+          >Annuler le Filtre</a
+        >
+      </center>
+    </form>
+  </div>
+</div>
+
+<div class="card shadow mb-4" id="the_list">
+  <div class="card-header py-3">
+    <center>
+      <h6 class="m-0 font-weight-bold text-primary">Tout Les Étudiant</h6>
+    </center>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      {% if not records.qs %}
+      <center>
+        <h1>Aucun enregistrement</h1>
+      </center>
+      {% else %}
+      <table
+        class="table table-bordered table-striped"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+      >
+        <thead>
+          <tr>
+            {% for head in header %}
+            <th>{{head}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in records.qs %} 
+          <tr>
+            <td>{{record.etudiant.mat}}</td>
+            <td>{{record.etudiant.nom}}</td>
+            <td>{{record.etudiant.prenom}}</td>
+            <td>{{record.etudiant.date_de_naissance}}</td>
+            <td>{{record.etudiant.domaine}}</td>
+            <td>{{record.etudiant.filiere}}</td>
+            <td>{{record.etudiant.niveau}}</td>
+            <td>{{record.date|date:'d/m/Y'}}</td>
+            <td>{{record.temp|date:"G:i"}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
