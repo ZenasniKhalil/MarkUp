@@ -74,6 +74,7 @@ def deleteStudents(request):
 @login_required(login_url='/login/')
 @permission_required('base.add_domaine')
 def addDomaine(request):
+    domaines = Domaine.objects.all()
     form = DomaineForm()
     if request.method == 'POST':
         try:
@@ -81,18 +82,28 @@ def addDomaine(request):
                 code=request.POST.get('code'),
                 nom=request.POST.get('nom')
             )
-            return redirect('base:dashboard')
+            messages.success(request, 'le Domaine <strong>'+request.POST.get('nom')+'</strong> est bien enregistré')
+            return redirect('base:ajouter-domaine')
         except IntegrityError as e:
             messages.error(request, 'Le Code <strong>'+str(request.POST.get('code'))+'</strong> est deja existant !!!')
         
     context={
-        'form':form
+        'form':form,
+        'domaines':domaines,
     }
     return render(request, 'base/domaine.html',context)
 
 @login_required(login_url='/login/')
+@permission_required('base.delete_domaine')
+def deleteDomaine(request,code):
+    domaine = Domaine.objects.get(code=code)
+    domaine.delete()
+    return redirect('base:ajouter-domaine')
+
+@login_required(login_url='/login/')
 @permission_required('base.add_filiere')
 def addFiliere(request):
+    filieres = Filiere.objects.all()
     form = FiliereForm()
     if request.method == 'POST':
         try:
@@ -100,14 +111,23 @@ def addFiliere(request):
                 code=request.POST.get('code'),
                 nom=request.POST.get('nom')
             )
-            return redirect('base:dashboard')
+            return redirect('base:ajouter-filiere')
         except IntegrityError as e:
             messages.error(request, 'Le Code <strong>'+str(request.POST.get('code'))+'</strong> est deja existant !!!')
         
     context={
-        'form':form
+        'form':form,
+        'filieres':filieres
     }
     return render(request, 'base/filiere.html',context)
+
+@login_required(login_url='/login/')
+@permission_required('base.delete_filiere')
+def deleteFiliere(request,code):
+    filiere = Filiere.objects.get(code=code)
+    filiere.delete()
+    return redirect('base:ajouter-filiere')
+
 
 def downloadRepport(request):
     records = VerifierFilter(request.session['recods'], queryset=Verifier.objects.all())

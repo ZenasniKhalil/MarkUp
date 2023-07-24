@@ -1,43 +1,54 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
+{% block title %}Ajouter Des utilisateur{% endblock %} 
 {% block content %}
 
 <center>
-    <div style="margin: 200px;">
-        <form method="POST">
-            {% csrf_token %}
-            {{form.username}}
-            <small id="passwordHelpBlock" class="form-text text-muted">
-                {{form.username.help_text}}
-              </small>
+    <div style="margin: 100px;">
+        <div class="card">
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %}
+              {{form.username}}
+              <small id="passwordHelpBlock" class="form-text text-muted">
+                Requis. 150 caractères ou moins. Lettres, chiffres et @/./+/-/_ uniquement.
+                </small>
+              <br>
+              <div class="row">
+                  <div class="col">
+                    {{form.first_name}}
+                  </div>
+                  <div class="col">
+                    {{form.last_name}}
+                  </div>
+                </div>
+            <br>
+            {{form.email}}
             <br>
             <div class="row">
-                <div class="col">
-                  {{form.first_name}}
-                </div>
-                <div class="col">
-                  {{form.last_name}}
-                </div>
+              <div class="col">
+                {{form.password1}}
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  
+                  <ul>
+                    <li>Votre mot de passe ne doit pas être trop similaire à vos autres informations personnelles.</li>
+                    <li>Votre mot de passe doit contenir au moins 8 caractères.</li>
+                    <li>Votre mot de passe ne peut pas être un mot de passe couramment utilisé.</li>
+                    <li>Votre mot de passe ne peut pas être entièrement numérique.</li>
+                  </ul>
+                </small>
               </div>
-          <br>
-          {{form.email}}
-          <br>
-          <div class="row">
-            <div class="col">
-              {{form.password1}}
-              <small id="passwordHelpBlock" class="form-text text-muted">
-                {{form.password1.help_text}}
-              </small>
+              <div class="col">
+                {{form.password2}}
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  Entrez le même mot de passe qu'avant, pour vérification.
+                </small>
+                
+              </div>
             </div>
-            <div class="col">
-              {{form.password2}}
-              <small id="passwordHelpBlock" class="form-text text-muted">
-                Enter the same password as before, for verification.
-              </small>
-              
-            </div>
+            <input type="submit" value="Register" class="btn btn btn-outline-info" > 
+            </form>
+      </div>
           </div>
-          <input type="submit" value="Register" class="btn btn btn-outline-info" > 
-          </form>
-    </div>
+        </div>
 </center>
 {% endblock %}

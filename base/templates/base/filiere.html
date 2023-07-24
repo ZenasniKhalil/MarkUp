@@ -1,25 +1,18 @@
 {% extends 'index.html' %}
+{% block title %}Ajouter Filière{% endblock %} 
 {% load widget_tweaks %}
 {% block content %}
 <style>
-    .set-center {
-      height: 75vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    #annuler {
-      margin-left: 20px;
-    }
     .set_width{
         width: 700px;
     }
   </style>
-  <div class="set-center">
-    <div class="card mb-4 delete">
+
+    <div class="card mb-4 delete text-center">
       <div class="card-header">Ajouter Une Filière</div>
       <div class="card-body">
-        <div class="set_width">
+        <center>
+          <div class="set_width">
             <center>
                 <form action="" method="post">
                   {% csrf_token %}
@@ -38,7 +31,57 @@
                 </form>
               </center>
         </div>
+        </center>
       </div>
     </div>
-  </div>
+    <br>
+    <div class="card mb-4 delete text-center">
+      <div class="card-header">Filières</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          {% if not filieres %}
+          <center>
+            <h1>Aucun Filière</h1>
+          </center>
+          {% else %}
+          <table
+            class="table table-bordered table-striped"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>Filière Code</th>
+                <th>Filière titre</th>
+                <th>Supprimer Filière</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for filiere in filieres %}
+              <tr>
+                <td>{{filiere.code}}</td>
+                <td>{{filiere.nom}}</td>
+                <td> <a href="{% url 'base:sup-filiere' filiere.code %}" class="btn btn-danger">Supprimer</a> </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

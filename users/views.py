@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import CreateUser
+from django.contrib.auth.models import Group
 # Create your views here.
 
 def user_login(request):
@@ -35,13 +36,17 @@ def user_register(request):
         form = CreateUser(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request,user)
+            group = Group.objects.get(name='stuff')
+            user.groups.add(group)
             messages.success(request, f'Your account <strong>"{user.username}"</strong> was created successfully !!!')
-            return redirect('base:home')
+            return redirect('users:user_register')
         else:
             username = request.POST['username']
-            if User.objects.get(username=username):
-                messages.error(request, 'This user is already exist !!! ')
+            try: 
+                if User.objects.get(username=username):
+                    messages.error(request, 'This user is already exist !!! ')
+            except :
+                pass
             if form['password2'].errors:
                 messages.error(request, 'The two password fields didn\'t match.')
             
