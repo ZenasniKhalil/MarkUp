@@ -160,5 +160,13 @@ def downloadRepport(request):
     return response
 
 
+def deleteAllRecords(request):
+    records = Verifier.objects.all()
+    if request.method == 'POST':
+        records.delete()
+        messages.success(request, 'tous les <strong>enregistrements</strong> ont été supprimés avec succès')
+        return redirect('base:dashboard')
+    return render(request, 'base/sup_enregistrements.html')
+
 
 

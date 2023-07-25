@@ -11,4 +11,5 @@ urlpatterns = [
     path('ajouter-filiere/',views.addFiliere, name='ajouter-filiere'),
     path('sup-filiere/<str:code>/', views.deleteFiliere, name='sup-filiere'),
     path('export/',views.downloadRepport, name='export'),
+    path('sup-enregistrements/', views.deleteAllRecords, name='sup-enregistrements'),
 ]

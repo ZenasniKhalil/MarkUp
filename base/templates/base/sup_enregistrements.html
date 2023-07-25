@@ -1,0 +1,26 @@
+{% extends 'index.html' %} {% load static %} {% block content %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">
+      Suprimer tout les enregistrements
+    </h6>
+  </div>
+  <div class="card-body">
+    <form action="" method="post" id="delete_student_form">
+      {% csrf_token %}
+      <center>
+        <button
+          type="submit"
+          class="btn btn-danger btn-icon-split"
+          name="delete_btn"
+        >
+          <span class="icon text-white-50">
+            <i class="fas fa-trash"></i>
+          </span>
+          <span class="text">Supprimer tous les enregistrements</span>
+        </button>
+      </center>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -13,7 +13,9 @@
       <!-- <i class="fas fa-graduation-cap"></i> -->
       <i class="fas fa-clipboard-list"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">Mark<strong style="font-size: 1.4rem;">UP</strong> </div>
+    <div class="sidebar-brand-text mx-3">
+      Mark<strong style="font-size: 1.4rem">UP</strong>
+    </div>
   </a>
 
   <!-- Divider -->
@@ -37,8 +39,14 @@
       <i class="fas fa-fw fa-users"></i>
       <span>Étudiants</span></a
     >
-  </li> 
+  </li>
   {% if not stuff %}
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'base:sup-enregistrements' %}">
+      <i class="fas fa-fw fa-trash"></i>
+      <span>supprimer tous les enregistrements</span></a
+    >
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="{% url 'base:add_student' %}">
       <i class="fas fa-fw fa-user-plus"></i>
